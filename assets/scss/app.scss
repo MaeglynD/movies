@@ -1,0 +1,148 @@
+@mixin ellipsisText(){
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis
+}
+
+.m-container{
+
+  .m-header{
+    height: 30vh;
+    position: relative;
+
+    .m-image-background, .m-image-gradient{
+      position: absolute;
+      height: 110%;
+      width: 100%;
+    }
+
+    .m-image-background{
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      background-size: cover;
+      opacity: 0.8;
+      background-image: url('~/assets/img/trending.png')
+    }
+
+    .m-image-gradient{
+      // Rendering with GPU gives a much smoother gradient.
+      transform: translateZ(0);
+      background: linear-gradient(180deg, rgba(18,18,18,0) 0, $m-grey-background);
+    }
+
+    .m-title{
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      z-index: 1;
+      position: relative;
+      font-size: 40px;
+      font-weight: 300;
+    }
+  }
+
+  .m-app{
+    max-width: $m-container-width;
+    padding: 65px 30px;
+    margin: auto;
+
+    .m-movie-listings{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-gap: 10px;
+      padding: 60px 0px;
+
+      .m-movie{
+        line-height: 2.4;
+        padding-bottom: 35px;
+        cursor: pointer;
+
+        &:hover{
+
+          img{
+            filter: brightness(120%);
+          }
+        }
+
+        .m-movie-title{
+          font-size: 14px;
+          @include ellipsisText();
+        }
+
+        .m-movie-subtitle{
+          @include ellipsisText();
+          font-size: 13px;
+          color: $m-grey-text-light;
+        }
+
+        img{
+          transition: 0.2s;
+          width: 100%;
+        }
+      }
+    }
+
+    .m-controls{
+      display: flex;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      padding: 20px 0px;
+      z-index: 2;
+      background: $m-grey-background;
+
+      ::v-deep .m-search{
+        max-width: 300px;
+        font-size: inherit;
+        margin-right: auto;
+
+        .v-input__prepend-inner{
+          padding-left: 2px;
+          padding-right: 6px;
+        }
+
+        .mdi{
+          font-size: 18px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        input{
+          &::placeholder{
+            color: rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
+
+      .m-control{
+        background: $m-grey-foreground;
+        height: 48px;
+        display: flex;
+        padding: 0 20px;
+        align-items: center;
+        margin: 0 8px;
+        box-shadow: $m-box-shadow;
+        border-radius: 4px;
+        color: rgba(255, 255, 255, 0.9);
+        user-select: none;
+        cursor: pointer;
+        transition: 0.2s;
+        will-change: background;
+
+        &:hover{
+          background: rgb(43, 43, 43)
+        }
+
+        .m-other{
+          margin-left: 8px;
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .mdi{
+          margin-right: 13px;
+        }
+      }
+    }
+  }
+}
+
