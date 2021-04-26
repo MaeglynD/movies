@@ -11,6 +11,7 @@ export const state = () => ({
   },
   baseUrl: '',
   nowPlaying: [],
+  genres: [],
 });
 
 export const mutations = {
@@ -45,6 +46,10 @@ export const mutations = {
   setPageState(state, pageState) {
     state.pageState = pageState;
   },
+
+  setGenres(state, genres) {
+    state.genres = genres;
+  },
 };
 
 export const actions = {
@@ -64,6 +69,17 @@ export const actions = {
     await requestWrapper(context, async () => {
       const { data: { results } } = await this.$axios.get('movie/now_playing');
       commit('setNowPlaying', results);
+    });
+  },
+
+  // API call for /genre/movie/list
+  async getGenres(context) {
+    const { commit } = context;
+
+    // Retrive data and set in state
+    await requestWrapper(context, async () => {
+      const { data: { genres } } = await this.$axios.get('genre/movie/list');
+      commit('setGenres', genres);
     });
   },
 

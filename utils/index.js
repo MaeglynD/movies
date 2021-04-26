@@ -39,3 +39,11 @@ export const requestWrapper = async (context, attempt, onError, successSnack, fa
     commit('setPageState', '');
   }
 };
+
+export const sortingPossibilities = {
+  'Most popular': (a, b) => b.popularity - a.popularity,
+  'Least popular': (a, b) => a.popularity - b.popularity,
+  'Highest rated': (a, b) => b.vote_average - a.vote_average,
+  'Lowest rated': (a, b) => a.vote_average - b.vote_average,
+  'Alphabetically (A - Z)': (a, b) => a.title.localeCompare(b.title),
+};
