@@ -6,6 +6,103 @@
 
 .m-container{
 
+  .m-showcase-overlay{
+    position: fixed;
+    height: 100vh;
+    z-index: 2;
+    width: 100vw;
+    overflow: hidden;
+    background: rgba(14, 14, 14, 0.6);
+    bottom: 0;
+    top: 0;
+    transform: translateZ(0);
+    backdrop-filter: blur(6px);
+
+    .m-background{
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+
+    .m-showcase{
+      max-width: 45%;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #0e0e0e;
+      border-left: 1px solid rgba(255, 255, 255, 0.03);
+
+      @media(max-width: 1200px){
+        max-width: 100%;
+      }
+
+      img{
+        width: 100%;
+        max-height: 70vh;
+      }
+
+      .m-showcase-bio{
+        padding: 40px;
+        font-weight: 200;
+
+        & > div:not(.m-description) {
+          @include ellipsisText();
+        }
+
+        .m-title{
+          font-size: 18px;
+        }
+
+        .m-subtitle{
+          display: flex;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.37);
+          margin-top: 15px;
+
+          .m-divider{
+            margin: 0px 15px;
+          }
+
+          ::v-deep .mdi{
+            font-size: 16px;
+            color: $m-accent;
+            margin-right: 10px;
+          }
+        }
+
+        .m-close{
+          position: absolute;
+          right: 40px;
+          bottom: 16px;
+          padding: 10px 20px;
+          opacity: 0;
+          cursor: pointer;
+          transition: 0.2s;
+          will-change: background;
+
+          &:hover{
+            background: rgba(255, 255, 255, 0.03);
+          }
+
+          @media (max-width: 1200px){
+            opacity: 1;
+          }
+        }
+
+        .m-description{
+          margin-top: 21px;
+          opacity: 0.4;
+          font-size: 15px;
+          line-height: 2;
+        }
+      }
+    }
+  }
+
   .m-header{
     height: 30vh;
     position: relative;
@@ -25,7 +122,6 @@
     }
 
     .m-image-gradient{
-      // Rendering with GPU gives a much smoother gradient.
       transform: translateZ(0);
       background: linear-gradient(180deg, rgba(18,18,18,0) 0, $m-grey-background);
     }
@@ -92,15 +188,19 @@
       z-index: 2;
       background: $m-grey-background;
 
+      .m-side-controls{
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+
       ::v-deep .m-search{
         max-width: 300px;
         font-size: inherit;
         margin-right: auto;
         font-size: 14px;
-
-        .v-input__slot{
-          padding: 0;
-        }
+        min-width: 20%;
+        margin-right: 10px;
 
         .v-input__prepend-inner{
           padding-left: 2px;
@@ -133,9 +233,15 @@
         cursor: pointer;
         transition: 0.2s;
         will-change: background;
+        width: 100%;
+        @include ellipsisText();
 
         &:hover{
           background: rgb(43, 43, 43)
+        }
+
+        &:last-of-type{
+          margin-right: 0;
         }
 
         .m-other{
@@ -145,6 +251,20 @@
 
         .mdi{
           margin-right: 13px;
+        }
+      }
+
+      @media(max-width: 1200px){
+        flex-wrap: wrap;
+
+        .m-side-controls{
+
+        }
+
+        .m-search{
+          width: 100%;
+          max-width: unset;
+          margin: 20px 0px;
         }
       }
     }

@@ -13,7 +13,7 @@ export const requestWrapper = async (context, attempt, onError, successSnack, fa
     await attempt();
 
     // This delay is left here on purpose as to allow the loading screen to be shown
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // If theres any string to show in the sucess snackbar...
     if (successSnack) {
@@ -47,3 +47,6 @@ export const sortingPossibilities = {
   'Lowest rated': (a, b) => a.vote_average - b.vote_average,
   'Alphabetically (A - Z)': (a, b) => a.title.localeCompare(b.title),
 };
+
+// Return an unractive copy of an object
+export const unreactiveClone = (obj) => JSON.parse(JSON.stringify(obj));
